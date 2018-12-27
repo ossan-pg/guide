@@ -26,31 +26,31 @@
 のように特殊な活用をする単語の場合はコメントとして付記するといいでしょう。
 -->
 
-| 訳語              | 原文            |
-|:-----------------:|:---------------:|
-| 型の別名          | type alias      |
-| オブジェクト指向  | object oriented |
-| テキスト入力      | text field      |
-| カスタム型        | custom type     |
-| パターンマッチ    | pattern match   |
-| 相互運用          | interop         |
-| カスタムエレメンツ| custom element  |
-| パース            | parsing         |
-| パースする        | parse           |
-| バリアント    | variant       |
-| パターンマッチ | pattern matching |
-| 補助関数       | helper function  |
-| アセット | asset |
-| ミニファイ | minify |
-| コマンド | Command |
-| サブスクリプション | Subscription |
-| 型注釈 | type annotation |
-| タプル | tuple |
-| レコード | record |
-| 無名関数 | anonymous function |
-| 予約語 | keyword |
-| 構造的部分型 | structural typing |
-| 制約付き型変数 | constrained type variable |
+| 原文                      | 訳語               |
+|:-------------------------:|:------------------:|
+| anonymous function        | 無名関数           |
+| asset                     | アセット           |
+| Command                   | コマンド           |
+| constrained type variable | 制約付き型変数     |
+| custom element            | カスタムエレメンツ |
+| custom type               | カスタム型         |
+| helper function           | 補助関数           |
+| interop                   | 相互運用           |
+| keyword                   | 予約語             |
+| minify                    | ミニファイ         |
+| object oriented           | オブジェクト指向   |
+| parse                     | パースする         |
+| parsing                   | パース             |
+| pattern match             | パターンマッチ     |
+| pattern matching          | パターンマッチ     |
+| record                    | レコード           |
+| structural typing         | 構造的部分型       |
+| Subscription              | サブスクリプション |
+| text field                | テキスト入力       |
+| tuple                     | タプル             |
+| type alias                | 型の別名           |
+| type annotation           | 型注釈             |
+| variant                   | バリアント         |
 <!-- | ソースコード自身がその意味するところを雄弁に語るようになります | self-documenting | -->
 <!-- | ソースコード自身がその意味するところを雄弁に語るようになります | self-documented | -->
 <!-- | 章 | chapter | -->
