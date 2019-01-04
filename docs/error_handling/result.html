@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>パターンマッチ · An Introduction to Elm</title>
+        <title>Result · An Introduction to Elm</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,10 +57,10 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../error_handling/" />
+    <link rel="next" href="../effects/" />
     
     
-    <link rel="prev" href="custom_types.html" />
+    <link rel="prev" href="maybe.html" />
     
 
     </head>
@@ -199,9 +199,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="./">
+        <li class="chapter " data-level="1.6" data-path="../types/">
             
-                <a href="./">
+                <a href="../types/">
             
                     
                     型
@@ -213,9 +213,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="reading_types.html">
+        <li class="chapter " data-level="1.6.1" data-path="../types/reading_types.html">
             
-                <a href="reading_types.html">
+                <a href="../types/reading_types.html">
             
                     
                     型を読む
@@ -226,9 +226,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.2" data-path="type_aliases.html">
+        <li class="chapter " data-level="1.6.2" data-path="../types/type_aliases.html">
             
-                <a href="type_aliases.html">
+                <a href="../types/type_aliases.html">
             
                     
                     型の別名
@@ -239,9 +239,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6.3" data-path="custom_types.html">
+        <li class="chapter " data-level="1.6.3" data-path="../types/custom_types.html">
             
-                <a href="custom_types.html">
+                <a href="../types/custom_types.html">
             
                     
                     カスタム型
@@ -252,9 +252,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.6.4" data-path="pattern_matching.html">
+        <li class="chapter " data-level="1.6.4" data-path="../types/pattern_matching.html">
             
-                <a href="pattern_matching.html">
+                <a href="../types/pattern_matching.html">
             
                     
                     パターンマッチ
@@ -270,9 +270,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7" data-path="../error_handling/">
+        <li class="chapter " data-level="1.7" data-path="./">
             
-                <a href="../error_handling/">
+                <a href="./">
             
                     
                     Error Handling
@@ -284,9 +284,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.7.1" data-path="../error_handling/maybe.html">
+        <li class="chapter " data-level="1.7.1" data-path="maybe.html">
             
-                <a href="../error_handling/maybe.html">
+                <a href="maybe.html">
             
                     
                     Maybe
@@ -297,9 +297,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.7.2" data-path="../error_handling/result.html">
+        <li class="chapter active" data-level="1.7.2" data-path="result.html">
             
-                <a href="../error_handling/result.html">
+                <a href="result.html">
             
                     
                     Result
@@ -674,7 +674,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >パターンマッチ</a>
+        <a href=".." >Result</a>
     </h1>
 </div>
 
@@ -689,65 +689,53 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <!--
-# Pattern Matching
--->
-<h1 id="&#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x30DE;&#x30C3;&#x30C1;">&#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x30DE;&#x30C3;&#x30C1;</h1>
-<!--
-On the previous page, we learned how to create [custom types](/types/custom_types.html) with the `type` keyword. Our primary example was a `User` in a chat room:
--->
-<p>&#x524D;&#x306E;&#x30DA;&#x30FC;&#x30B8;&#x3067;&#x3001;<code>type</code> &#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x7528;&#x3044;&#x305F;<a href="custom_types.html">&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x578B;</a>&#x306E;&#x66F8;&#x304D;&#x65B9;&#x306B;&#x3064;&#x3044;&#x3066;&#x5B66;&#x3073;&#x307E;&#x3057;&#x305F;&#x3002;
-&#x4E3B;&#x8981;&#x306A;&#x4F8B;&#x3068;&#x3057;&#x3066;&#x30C1;&#x30E3;&#x30C3;&#x30C8;&#x30EB;&#x30FC;&#x30E0;&#x306E; <code>User</code> &#x578B;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3057;&#x305F;:</p>
-<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">User</span>
-  = <span class="hljs-type">Regular</span> <span class="hljs-type">String</span> <span class="hljs-type">Int</span>
-  | <span class="hljs-type">Visitor</span> <span class="hljs-type">String</span>
+                                <h1 id="result">Result</h1>
+<p>The <code>Maybe</code> type can help with simple functions that may fail, but it does not tell you <em>why</em> it failed. Imagine if a compiler just said <code>Nothing</code> if anything was wrong with your program. Good luck figuring out what went wrong!</p>
+<p>This is where the <a href="https://package.elm-lang.org/packages/elm-lang/core/latest/Result#Result" target="_blank"><code>Result</code></a> type becomes helpful. It is defined like this:</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Result</span> error value
+  = <span class="hljs-type">Ok</span> value
+  | <span class="hljs-type">Err</span> error
 </code></pre>
-<!--
-Regulars have a name and age, whereas visitors only have a name. So we have our custom type, but how do we actually use it?
--->
-<p><code>Regular</code> &#x30E6;&#x30FC;&#x30B6;&#x30FC;&#x306F;&#x540D;&#x524D;&#x3068;&#x5E74;&#x9F62;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x308B;&#x306E;&#x306B;&#x5BFE;&#x3057;&#x3001;<code>Visitor</code> &#x30E6;&#x30FC;&#x30B6;&#x30FC;&#x306F;&#x540D;&#x524D;&#x3060;&#x3051;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x308B;&#x306E;&#x3067;&#x3057;&#x305F;&#x3002;
-&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x578B;&#x306E;&#x4F5C;&#x308A;&#x65B9;&#x306F;&#x5206;&#x304B;&#x308A;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x5B9F;&#x969B;&#x306B;&#x306F;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x4F7F;&#x3048;&#x3070;&#x826F;&#x3044;&#x306E;&#x3067;&#x3057;&#x3087;&#x3046;&#x304B;&#xFF1F;</p>
-<!--
-## `case`
--->
-<h2 id="case"><code>case</code></h2>
-<!--
-Say we want a `toName` function that decides on a name to show for each `User`. We need to use a `case` expression:
--->
-<p>&#x5404; <code>User</code> &#x304B;&#x3089;&#x8868;&#x793A;&#x3059;&#x308B;&#x540D;&#x524D;&#x3092;&#x8FD4;&#x3059;&#x95A2;&#x6570; <code>toName</code> &#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x3044;&#x3068;&#x3057;&#x307E;&#x3059;&#x3002;
-<code>case</code> &#x5F0F;&#x3092;&#x4F7F;&#x3046;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x3067;&#x3057;&#x3087;&#x3046;:</p>
-<pre><code class="lang-elm"><span class="hljs-title">toName</span> : <span class="hljs-type">User</span> -&gt; <span class="hljs-type">String</span>
-<span class="hljs-title">toName</span> user =
-  <span class="hljs-keyword">case</span> user <span class="hljs-keyword">of</span>
-    <span class="hljs-type">Regular</span> name age -&gt;
-      name
+<p>The point of this type is to give additional information when things go wrong. It is really helpful for error reporting and error recovery!</p>
+<h2 id="error-reporting">Error Reporting</h2>
+<p>Perhaps we have a website where people input their age. We could check that the age is reasonable with a function like this:</p>
+<pre><code class="lang-elm"><span class="hljs-title">isReasonableAge</span> : <span class="hljs-type">String</span> -&gt; <span class="hljs-type">Result</span> <span class="hljs-type">String</span> <span class="hljs-type">Int</span>
+<span class="hljs-title">isReasonableAge</span> input =
+  <span class="hljs-keyword">case</span> <span class="hljs-type">String</span>.toInt input <span class="hljs-keyword">of</span>
+    <span class="hljs-type">Nothing</span> -&gt;
+      <span class="hljs-type">Err</span> <span class="hljs-string">&quot;That is not a number!&quot;</span>
 
-    <span class="hljs-type">Visitor</span> name -&gt;
-      name
-<span class="hljs-comment">-- toName (Regular &quot;Thomas&quot; 44) == &quot;Thomas&quot;</span>
-<span class="hljs-comment">-- toName (Visitor &quot;kate95&quot;)    == &quot;kate95&quot;</span>
-</code></pre>
-<p>The <code>case</code> expression allows us to branch based on which variant we happen to see, so whether we see Thomas or Kate, we always know how to show their name.
-<!-- TODO --></p>
-<!--
-And if we try invalid arguments like `toName (Visitar "kate95")` or `toName Anonymous`, the compiler tells us about it immediately. This means many simple mistakes can be fixed in seconds, rather than making it to users and costing a lot more time overall.
--->
-<p>&#x305D;&#x3057;&#x3066;&#x3082;&#x3057;&#x3001;<code>toName (Visitar &quot;kate95&quot;)</code>&#x3000;&#x3084; <code>toName Anonymous</code>  &#x306E;&#x3088;&#x3046;&#x306A;&#x4E0D;&#x6B63;&#x306A;&#x5F15;&#x6570;&#x3092;&#x4E0E;&#x3048;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x3001;&#x30B3;&#x30F3;&#x30D1;&#x30A4;&#x30E9;&#x304C;&#x305D;&#x306E;&#x3053;&#x3068;&#x306B;&#x3064;&#x3044;&#x3066;&#x3059;&#x3050;&#x306B;&#x6559;&#x3048;&#x3066;&#x304F;&#x308C;&#x308B;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;
-&#x3064;&#x307E;&#x308A;&#x3001;&#x591A;&#x304F;&#x306E;&#x5358;&#x7D14;&#x306A;&#x30DF;&#x30B9;&#x306F;&#x3001;&#x3042;&#x307E;&#x308A;&#x6642;&#x9593;&#x3092;&#x304B;&#x3051;&#x306A;&#x304F;&#x3066;&#x3082;&#x3001;&#x6570;&#x79D2;&#x3067;&#x4FEE;&#x6B63;&#x3067;&#x304D;&#x308B;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
-<h2 id="wild-cards">Wild Cards</h2>
-<p>The <code>toName</code> function we just defined works great, but notice that the <code>age</code> is not used in the implementation? When some of the associated data is unused, it is common to use a &#x201C;wild card&#x201D; instead of giving it a name:
-<!-- TODO --></p>
-<pre><code class="lang-elm"><span class="hljs-title">toName</span> : <span class="hljs-type">User</span> -&gt; <span class="hljs-type">String</span>
-<span class="hljs-title">toName</span> user =
-  <span class="hljs-keyword">case</span> user <span class="hljs-keyword">of</span>
-    <span class="hljs-type">Regular</span> name _ -&gt;
-      name
+    <span class="hljs-type">Just</span> age -&gt;
+      <span class="hljs-keyword">if</span> age &lt; <span class="hljs-number">0</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-type">Err</span> <span class="hljs-string">&quot;Please try again after you are born.&quot;</span>
 
-    <span class="hljs-type">Visitor</span> name -&gt;
-      name
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> age &gt; <span class="hljs-number">135</span> <span class="hljs-keyword">then</span>
+        <span class="hljs-type">Err</span> <span class="hljs-string">&quot;Are you some kind of turtle?&quot;</span>
+
+      <span class="hljs-keyword">else</span>
+        <span class="hljs-type">Ok</span> age
+
+<span class="hljs-comment">-- isReasonableAge &quot;abc&quot; == Err ...</span>
+<span class="hljs-comment">-- isReasonableAge &quot;-13&quot; == Err ...</span>
+<span class="hljs-comment">-- isReasonableAge &quot;24&quot;  == Ok 24</span>
+<span class="hljs-comment">-- isReasonableAge &quot;150&quot; == Err ...</span>
 </code></pre>
-<p>The <code>_</code> acknowledges the data there, but also saying explicitly that nobody is using it.</p>
-<!-- TODO -->
+<p>Not only can we check the age, but we can also show people error messages depending on the particulars of their input. This kind of feedback is much better than <code>Nothing</code>!</p>
+<h2 id="error-recovery">Error Recovery</h2>
+<p>The <code>Result</code> type can also help you recover from errors. One place you see this is when making HTTP requests. Say we want to show the full text of <em>Anna Karenina</em> by Leo Tolstoy. Our HTTP request results in a <code>Result Error String</code> to capture the fact that the request may succeed with the full text, or it may fail in a bunch of different ways:</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Error</span>
+  = <span class="hljs-type">BadUrl</span> <span class="hljs-type">String</span>
+  | <span class="hljs-type">Timeout</span>
+  | <span class="hljs-type">NetworkError</span>
+  | <span class="hljs-type">BadStatus</span> <span class="hljs-type">Int</span>
+  | <span class="hljs-type">BadBody</span> <span class="hljs-type">String</span>
+
+<span class="hljs-comment">-- Ok &quot;All happy ...&quot; : Result Error String</span>
+<span class="hljs-comment">-- Err Timeout        : Result Error String</span>
+<span class="hljs-comment">-- Err NetworkError   : Result Error String</span>
+</code></pre>
+<p>From there we can show nicer error messages as we discussed before, but we can also try to recover from the failure! If we see a <code>Timeout</code> it may work to wait a little while and try again. Whereas if we see a <code>BadStatus 404</code> then there is no point in trying again.</p>
+<p>The next chapter shows how to actually make HTTP requests, so we will run into the <code>Result</code> and <code>Error</code> types again very soon!</p>
 
                                 
                                 </section>
@@ -775,12 +763,12 @@ And if we try invalid arguments like `toName (Visitar "kate95")` or `toName Anon
 
             
                 
-                <a href="custom_types.html" class="navigation navigation-prev " aria-label="Previous page: カスタム型">
+                <a href="maybe.html" class="navigation navigation-prev " aria-label="Previous page: Maybe">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="../error_handling/" class="navigation navigation-next " aria-label="Next page: Error Handling">
+                <a href="../effects/" class="navigation navigation-next " aria-label="Next page: コマンドとサブスクリプション">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -791,7 +779,7 @@ And if we try invalid arguments like `toName (Visitar "kate95")` or `toName Anon
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"パターンマッチ","level":"1.6.4","depth":2,"next":{"title":"Error Handling","level":"1.7","depth":1,"path":"error_handling/README.md","ref":"error_handling/README.md","articles":[{"title":"Maybe","level":"1.7.1","depth":2,"path":"error_handling/maybe.md","ref":"error_handling/maybe.md","articles":[]},{"title":"Result","level":"1.7.2","depth":2,"path":"error_handling/result.md","ref":"error_handling/result.md","articles":[]}]},"previous":{"title":"カスタム型","level":"1.6.3","depth":2,"path":"types/custom_types.md","ref":"types/custom_types.md","articles":[]},"dir":"ltr"},"config":{"plugins":["youtube","bulk-redirect","sitemap"],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"youtube":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://guide.elm-lang.jp/"},"bulk-redirect":{"basepath":"/","redirectsFile":"redirects.json"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Evan Czaplicki","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"An Introduction to Elm","language":"ja","gitbook":"*","description":"Learn the basics of Elm. Build applications. Learn functional programming."},"file":{"path":"types/pattern_matching.md","mtime":"2019-01-04T13:35:03.971Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-04T13:35:37.747Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Result","level":"1.7.2","depth":2,"next":{"title":"コマンドとサブスクリプション","level":"1.8","depth":1,"path":"effects/README.md","ref":"effects/README.md","articles":[{"title":"HTTP","level":"1.8.1","depth":2,"path":"effects/http.md","ref":"effects/http.md","articles":[]},{"title":"JSON","level":"1.8.2","depth":2,"path":"effects/json.md","ref":"effects/json.md","articles":[]},{"title":"Random","level":"1.8.3","depth":2,"path":"effects/random.md","ref":"effects/random.md","articles":[]},{"title":"Time","level":"1.8.4","depth":2,"path":"effects/time.md","ref":"effects/time.md","articles":[]}]},"previous":{"title":"Maybe","level":"1.7.1","depth":2,"path":"error_handling/maybe.md","ref":"error_handling/maybe.md","articles":[]},"dir":"ltr"},"config":{"plugins":["youtube","bulk-redirect","sitemap"],"root":"book","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"youtube":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"highlight":{},"sitemap":{"hostname":"https://guide.elm-lang.jp/"},"bulk-redirect":{"basepath":"/","redirectsFile":"redirects.json"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"Evan Czaplicki","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"An Introduction to Elm","language":"ja","gitbook":"*","description":"Learn the basics of Elm. Build applications. Learn functional programming."},"file":{"path":"error_handling/result.md","mtime":"2019-01-04T13:35:03.971Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-01-04T13:35:37.747Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
