@@ -20,7 +20,7 @@ Here we will make a rudimentary form. It has a field for your name, a field for 
 <!--
 The code is a bit longer in this case, but I still think it is valuable to look through it before you get into the description of what is going on.
 -->
-今回はコードが少し長くなりますが、説明の前にコードを一通り確認することは有意義なので見ていきましょう。
+今回はコードが少し長くなりますが、説明の前にコードを確認することは有意義なので目を通しましょう。
 
 ```elm
 import Browser
@@ -176,7 +176,7 @@ view model =
 We start by creating a `<div>` with four child nodes. But instead of using functions from `elm/html` directly, we call Elm functions to make our code more concise! We start with three calls to `viewInput`:
 -->
 4つのノードを持つ `<div>` を作ります。
-ただし `elm/html` モジュールの関数を直接使用するのではなく、コードを簡潔にするため自前で実装したElmの関数を呼び出します。
+ただし `elm/html` モジュールの関数を直接使用するのではなく、コードを簡潔にするため自前で実装した関数を呼び出します。
 
 `div` 内の1番目から3番目のノードを作るために呼び出している `viewInput` 関数から見ていきます。
 
@@ -190,7 +190,7 @@ viewInput t p v toMsg =
 So `viewInput "text" "Name" model.name Name` can create a node like `<input type="text" placeholder="Name" value="Bill">`. That node will also send messages like `Name "Billy"` to `update` on user input.
 -->
 この関数により `viewInput "text" "Name" model.name Name` を実行すると `<input type="text" placeholder="Name" value="Bill">` のようなノードを作成します (訳注1) 。
-また、このノードはユーザ入力により `Name "Billy"` のようなメッセージを `update` 関数に送ります。
+また、このノードはユーザ入力により `Name "Billy"` のようなメッセージを `update` 関数に送ります (訳注2) 。
 
 - 訳注1：ユーザが1番目のテキストフィールドに "Bill" と入力した状況を想定。
 - 訳注2：ユーザが1番目のテキストフィールドに "Billy" と入力した状況を想定。
@@ -198,7 +198,7 @@ So `viewInput "text" "Name" model.name Name` can create a node like `<input type
 <!--
 The fourth entry is more interesting. It is a call to `viewValidation`:
 -->
-4番目に呼び出している `viewValidation` 関数は少し面白いです：
+4番目のノードのために呼び出している `viewValidation` 関数は少し面白いものです：
 
 ```elm
 viewValidation : Model -> Html msg
@@ -253,7 +253,7 @@ Is this getting hard to understand? Maybe I can break out a helper function!
 -->
 > **Note:** 汎用的な検証ライブラリを作る試みはほとんどうまくいっていないようです。
 検証処理は「いくつかの引数を取り、`Bool` か `Maybe` を返す」という形の関数によって実装されるのが大抵の場合に最良とされていますが、これは問題だと考えています。
-例えば、2つの文字列が等しいかをチェックするのになぜライブラリを使用するのですか？ (訳注3)
+例えば、2つの文字列が等しいかをチェックするのになぜライブラリを使用するのでしょう？ (訳注3)
 我々が知る限り、最も単純なコードは余計なものを含まない特定のシナリオのためのロジックを書いたものです。
 ですので、ライブラリのような複雑なものを必要だと判断する前に、単純なコードを書いてそれで充分でないかを確認するようにしてください。
 
