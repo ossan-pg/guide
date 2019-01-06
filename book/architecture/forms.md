@@ -248,5 +248,13 @@ Is this getting hard to understand? Maybe I can break out a helper function!
 > また、サーバと通信をする場合はより多くのことを学ぶ必要があるので、事前にHTTPのパートまで読むようにしてください。
 > 適切な手順を踏んで学べば、実装はかなり楽になります！
 
-<!---->
+<!--
 > **Note:** It seems like efforts to make generic validation libraries have not been too successful. I think the problem is that the checks are usually best captured by normal Elm functions. Take some args, give back a `Bool` or `Maybe`. E.g. Why use a library to check if two strings are equal? So as far as we know, the simplest code comes from writing the logic for your particular scenario without any special extras. So definitely give that a shot before deciding you need something more complex!
+-->
+> **Note:** 汎用的な検証ライブラリを作る試みはほとんどうまくいっていないようです。
+検証処理は「いくつかの引数を取り、`Bool` か `Maybe` を返す」という形の関数によって実装されるのが大抵の場合に最良とされていますが、これは問題だと考えています。
+例えば、2つの文字列が等しいかをチェックするのになぜライブラリを使用するのですか？ (訳注3)
+我々が知る限り、最も単純なコードは余計なものを含まない特定のシナリオのためのロジックを書いたものです。
+ですので、ライブラリのような複雑なものを必要だと判断する前に、単純なコードを書いてそれで充分でないかを確認するようにしてください。
+
+- 訳注3：「`==` で比較すればいいのにわざわざ関数呼び出しでやろうとするのって無駄が多いよね？」というニュアンスだと思われる。
