@@ -227,7 +227,7 @@ These helper functions begin to show the benefits of having our HTML library be 
 Is this getting hard to understand? Maybe I can break out a helper function!
 -->
 
-<!---->
+<!--
 > **Exercises:** One cool thing about breaking `viewValidation` out is that it is pretty easy to augment. If you are messing with the code as you read through this (as you should be!) you should try to:
 >
 >  - Check that the password is longer than 8 characters.
@@ -236,6 +236,17 @@ Is this getting hard to understand? Maybe I can break out a helper function!
 >  - Add a `Submit` button. Only show errors *after* it has been pressed.
 >
 > Be sure to use the helpers in the [`String`](https://package.elm-lang.org/packages/elm/core/latest/String) module if you try any of these! Also, we need to learn more before we start talking to servers, so make sure you read all the way to the HTTP part before trying that. It will be significantly easier with proper guidance!
+-->
+> **Exercises:** 検証の処理を `viewValidation` 関数として切り出すと良い点の1つは機能の追加がとても簡単になるということです。
+> もし今回のコードをいじりながら目を通しているのであれば、次のことも試してみてください：
+> - パスワードが8文字を超えているかチェックする。
+> - パスワードに英大文字、英小文字、数字が使用されているか確認する。
+> - 年齢用の `age` フィールドをモデルに追加し、その値が数字で構成されているかチェックする。
+> - `Submit` ボタンを追加する。ボタンが押されたらエラーを表示するだけでよいです。
+> 
+> これらのことを試す場合、[`String`](https://package.elm-lang.org/packages/elm/core/latest/String) モジュールの関数を使うようにしてください。
+> また、サーバと通信をする場合はより多くのことを学ぶ必要があるので、事前にHTTPのパートまで読むようにしてください。
+> 適切な手順を踏んで学べば、実装はかなり楽になります！
 
 <!---->
 > **Note:** It seems like efforts to make generic validation libraries have not been too successful. I think the problem is that the checks are usually best captured by normal Elm functions. Take some args, give back a `Bool` or `Maybe`. E.g. Why use a library to check if two strings are equal? So as far as we know, the simplest code comes from writing the logic for your particular scenario without any special extras. So definitely give that a shot before deciding you need something more complex!
